@@ -1,4 +1,4 @@
-export const InputWithLabel = ({ name, label, type, value, onInputChange }) => {
+export const InputWithLabel = ({ name, label, type, value, onInputChange}) => {
     return (
       <div className="relative">
         <input
@@ -7,8 +7,8 @@ export const InputWithLabel = ({ name, label, type, value, onInputChange }) => {
           type={type}
           value={value}
           onChange={onInputChange}
-          className="peer h-9 w-[40vw] md:w-[20vw] border-b-1 text-gray-800 placeholder-transparent bg-white text-center rounded-xl px-[0.5rem]"
-          placeholder=" "
+          className="peer h-9 w-full border-b-1 text-gray-800 placeholder-transparent bg-white text-center rounded-xl px-[0.5rem]"
+          placeholder= " "
         />
         <label
           htmlFor={name}

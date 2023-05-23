@@ -56,7 +56,7 @@ export const Register = ({ changeLogRegister }) => {
     }
 
     return (
-        <div className="z-10 flex flex-col justify-center items-center gap-5 w-[50vw] h-[90vh] rounded-lg border-4 bg-[url('https://res.cloudinary.com/diek1olu2/image/upload/v1684796408/ASSEME%20-%20visual/mesh-274_qmkwf8.png')]">
+        <div className="z-10 flex flex-col justify-center items-center gap-5 w-[50vw] h-[90vh] rounded-lg bg-[url('https://res.cloudinary.com/diek1olu2/image/upload/v1684796408/ASSEME%20-%20visual/mesh-274_qmkwf8.png')]">
             <Typography
                 text="Register"
                 type="subtitle"

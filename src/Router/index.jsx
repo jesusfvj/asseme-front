@@ -11,6 +11,7 @@ import { ProfilePage } from "../Pages/ProfilePage";
 import { LoaderPage } from "../Pages/LoaderPage";
 import { ScrollTop } from "../Components/BaseComponents/ScrollTop";
 import { useUser } from "../Context/UserContext/UserContext";
+import { FinishUploadProcess } from "./FinishUploadProcess";
 
 function Router() {
   const { isLoginLoading } = useUser();
@@ -20,7 +21,14 @@ function Router() {
         <>
           <ScrollTop />
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={
+              <FinishUploadProcess>
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                </Routes>
+              </FinishUploadProcess>
+            }
+            />
             <Route path="/search" element={<SearchPage />}>
               <Route path=":query" element={<SearchPage />} />
             </Route>
