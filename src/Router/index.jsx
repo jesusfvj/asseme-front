@@ -11,7 +11,8 @@ import { ProfilePage } from "../Pages/ProfilePage";
 import { LoaderPage } from "../Pages/LoaderPage";
 import { ScrollTop } from "../Components/BaseComponents/ScrollTop";
 import { useUser } from "../Context/UserContext/UserContext";
-import { FinishUploadProcess } from "./FinishUploadProcess";
+import FinishUploadProcess from "./FinishUploadProcess";
+import { GifPage } from "../Pages/GifPage";
 
 function Router() {
   const { isLoginLoading } = useUser();
@@ -34,6 +35,9 @@ function Router() {
             </Route>
             <Route path="/artist" element={<ArtistPage />}>
               <Route path=":artistId" element={<ArtistPage />} />
+            </Route>
+            <Route path="/gif" element={<GifPage />}>
+              <Route path=":gifId" element={<GifPage />} />
             </Route>
             <Route path="/loginregister" element={<LoginRegister />} />
             <Route path="/upload" element={<UploadItems />} />

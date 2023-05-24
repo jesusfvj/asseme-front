@@ -9,20 +9,19 @@ export const CarouselList = ({
   sectionTitle,
   dataType,
   textType = "important",
-  itemsNumber = {
+}) => {
+  const [isSwipping, setIsSwipping] = useState(false);
+  const itemsNumber = {
     itemsSuperLarge: 7,
     itemsDesktop: 5,
     itemsTablet: 3,
     itemsMobile: 2,
-  },
-
-}) => {
-  const [isSwipping, setIsSwipping] = useState(false);
+  }
 
   return (
     <div className="w-full">
-      <div className="flex pl-4">
-        <Typography type={textType} text={sectionTitle} color="white" />
+      <div className="flex pl-4 mb-10">
+        <Typography type={textType} text={sectionTitle} color="blue" />
       </div>
       <Carousel
         itemsSuperLarge={itemsNumber["itemsSuperLarge"]}
@@ -39,9 +38,9 @@ export const CarouselList = ({
               return <MemeElement key={index} object={object} />;
             case "artist":
               return <ArtistElement key={index} object={object} />;
-            case "skeletonPlaylist":
+            case "skeletonGif":
               return <SkeletonGifElement key={index} object={object} />;
-            case "skeletonAlbum":
+            case "skeletonMeme":
               return <SkeletonMemeElement key={index} object={object} />;
             case "skeletonArtist":
               return <SkeletonArtistElement key={index} object={object} />;

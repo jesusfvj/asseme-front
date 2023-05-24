@@ -1,7 +1,11 @@
 import axios from "axios";
-import { checkTokenExpired } from "../../Utils/tokenExpiredValidator";
+import {
+  checkTokenExpired
+} from "../../Utils/tokenExpiredValidator";
 
-import { BASE_URL } from "../../Utils/FetchRoutes";
+import {
+  BASE_URL
+} from "../../Utils/FetchRoutes";
 const BASE_URL_USER = BASE_URL + "/user"
 
 export const registerUser = async (user) => {
@@ -9,6 +13,9 @@ export const registerUser = async (user) => {
     const res = await axios.post(`${BASE_URL_USER}/register`, user);
     return res.data;
   } catch (error) {
+    if (error?.message) {
+      return error.message
+    }
     return error.response.data.msg;
   }
 };
@@ -18,20 +25,25 @@ export const loginUser = async (user) => {
     const res = await axios.post(`${BASE_URL_USER}/login`, user);
     return res.data;
   } catch (error) {
-    console.log(error)
+    if (error?.message) {
+      return error.message
+    }
     return error.response.data.msg;
   }
 };
 
 export const getUserById = async (userId) => {
   try {
-    const res = await axios.get(`${BASE_URL_USER}/${userId}`, {
+    const res = await axios.get(`${BASE_URL_USER}/getuserbyid/${userId}`, {
       headers: {
         "x-token": window.localStorage.getItem("token"),
       },
     });
     return res.data;
   } catch (error) {
+    if (error?.message) {
+      return error.message
+    }
     checkTokenExpired(error.response.data);
     return error.response.data;
   }
@@ -41,8 +53,7 @@ export const updateProfileImageAPI = async (formData, userId) => {
   try {
     const res = await axios.put(
       `${BASE_URL_USER}/uploadProfileImage/${userId}`,
-      formData,
-      {
+      formData, {
         headers: {
           "x-token": window.localStorage.getItem("token"),
         },
@@ -74,4 +85,3 @@ export const updateProfileImageAPI = async (formData, userId) => {
     return error.response.data;
   }
 }; */
-

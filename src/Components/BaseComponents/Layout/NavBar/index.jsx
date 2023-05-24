@@ -4,12 +4,13 @@ import { AiOutlineUser } from "react-icons/ai";
 import { Typography } from "../../Typography";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../../../Context/UserContext/UserContext";
+import { Link } from "react-router-dom";
 
 export const NavBar = () => {
     const { user, logout } = useUser()
     const navigate = useNavigate();
     const handleLogInLogOut = () => {
-        if(user){
+        if (user) {
             logout()
         } else {
             navigate(`/loginregister`)
@@ -19,10 +20,13 @@ export const NavBar = () => {
     return (
         <nav className="w-screen h-[20vh] flex justify-center bg-[length:100vw_30vh] bg-[url('https://res.cloudinary.com/diek1olu2/image/upload/v1684782686/ASSEME%20-%20visual/ASSEME_wave2_xyoxe6.png')] drop-shadow-lg z-10">
             <div className="flex justify-around items-center gap-10 w-screen h-[10vh] px-10">
-                <Typography
-                    text="ASSEME"
-                    type="important"
-                    color="yellow" />
+                <Link to="/">
+                    <Typography
+                        text="ASSEME"
+                        type="important"
+                        color="yellow"
+                    />
+                </Link>
                 <div className="w-[50%]">
                     <Search />
                 </div>
@@ -32,7 +36,7 @@ export const NavBar = () => {
                             size="xs"
                             text="Upload"
                             textWhite={true}
-                            onClick={()=>navigate(`/upload`)}
+                            onClick={() => navigate(`/upload`)}
                         />
                     </div>
                     <div className="w-full h-[5vh] flex justify-center items-center">
@@ -49,12 +53,12 @@ export const NavBar = () => {
                                 color={`${user ? 'danger' : 'gray'}`}
                                 text={`${user ? 'Log out' : 'Log in'}`}
                                 textWhite={true}
-                                onClick = {handleLogInLogOut}
+                                onClick={handleLogInLogOut}
                             />
                         </div>
                     </div>
                 </div>
             </div>
-        </nav>
+        </nav >
     )
 }

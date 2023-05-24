@@ -1,7 +1,7 @@
 export const Typography = ({
   text,
   type = "p1",
-  color = "primary",
+  color = "white",
   family = "one",
   styles = "",
   onClick

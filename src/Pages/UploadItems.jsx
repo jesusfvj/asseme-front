@@ -12,7 +12,6 @@ import { useUser } from "../Context/UserContext/UserContext";
 
 export const UploadItems = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [urlData, setUrlData] = useState("");
   const [showModalToLogin, setShowModalToLogin] = useState(false);
   const navigate = useNavigate();
   const { dataToUpload, setDataToUpload } = useUI()
@@ -30,10 +29,8 @@ export const UploadItems = () => {
 
   useEffect(() => {
     if (dataToUpload !== null) {
-      if (Array.isArray(dataToUpload)) {
-        setSelectedFiles(dataToUpload)
-      } else {
-        setUrlData(dataToUpload)
+      if (Array.isArray(dataToUpload[0])) {
+        setSelectedFiles(dataToUpload[0])
       }
     }
   }, [])
@@ -103,8 +100,6 @@ export const UploadItems = () => {
                     />
                     <UploadLink
                       setShowModalToLogin={setShowModalToLogin}
-                      urlData={urlData}
-                      setUrlData={setUrlData}
                     />
                   </div>
                 </div>

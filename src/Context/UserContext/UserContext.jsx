@@ -56,7 +56,6 @@ export const UserProvider = ({ children }) => {
 
   const register = async (user) => {
     const data = await registerUser(user);
-    console.log(data)
     if (data.ok) {
       localStorage.setItem("token", data.user.token);
       dispatch({ type: types.register, payload: data.user });

@@ -25,7 +25,6 @@ export const Layout = ({ children }) => {
 
     useEffect(() => {
         if (messageErrorToaster !== "") {
-            console.log("hola")
             toastMessageError(messageErrorToaster);
             setMessageErrorToaster("");
         }

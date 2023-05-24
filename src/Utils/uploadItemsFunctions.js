@@ -13,15 +13,13 @@ const organizeAndSetDataForm = (dataFromTheForm, selectedFiles, filesFormData) =
         dataFiltered[`formDataFile${itemNumber}`][key.replace(/\d+$/, "")] = data[key];
     }
 
-
     //Set the formData to be sent to the backend with the fields
     Object.values(selectedFiles).map((selectedFile, index) => {
         const stringifiedData = JSON.stringify(dataFiltered[`formDataFile${index + 1}`])
         filesFormData.set(`dataFile${index + 1}`, stringifiedData)
-        filesFormData.set(`imageFile${index + 1}`, selectedFile)
     })
 
-    return filesFormData;
+    return {filesFormData, data};
 }
 
 export {

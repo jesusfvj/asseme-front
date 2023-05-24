@@ -4,6 +4,7 @@ import { Typography } from "../../BaseComponents/Typography";
 import { Button } from "../../BaseComponents/Button";
 import { InputWithLabel } from "../../BaseComponents/InputWithLabel";
 import { toastMessageError } from "../../../Utils/toaster";
+import { useUI } from "../../../Context/UI/UIContext";
 
 export const UploadedItemsComponent = (
     {
@@ -14,6 +15,7 @@ export const UploadedItemsComponent = (
         file
     }) => {
 
+    const { dataToUpload } = useUI();
     const [previewImage, setPreviewImage] = useState("")
 
     const handleInputChange = (event) => {
@@ -34,6 +36,15 @@ export const UploadedItemsComponent = (
             toastMessageError(`Please choose an image with a size less than: ${MAX_FILE_SIZE / 1000000}MB`)
         }
     }, [])
+
+    useEffect(() => {
+        if (dataToUpload !== null) {
+            setRegisterData(registerData => ({
+                ...registerData,
+                [`keywords${index + 1}`]: dataToUpload[1][`keywords${index + 1}`]
+            }));
+        }
+    }, [registerData])
 
     return (
         <div className="flex flex-col sm:flex-row items-center sm:items-end gap-10 sm:gap-5 w-full py-5">

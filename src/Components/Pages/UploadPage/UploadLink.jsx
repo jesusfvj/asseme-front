@@ -1,13 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '../../BaseComponents/Button'
 import { InputWithLabel } from '../../BaseComponents/InputWithLabel'
 import { useUser } from '../../../Context/UserContext/UserContext';
 import { useUI } from '../../../Context/UI/UIContext';
+import { Loader } from '../../BaseComponents/Loader';
+import { uploadItemUrlAPI } from '../../../API/ItemsApi';
+import { useNavigate } from 'react-router-dom';
 
-export const UploadLink = ({ setShowModalToLogin, urlData, setUrlData }) => {
+export const UploadLink = ({ setShowModalToLogin }) => {
     const [isLoading, setIsLoading] = useState(false);
-    const { setMessageSuccessToaster, setMessageErrorToaster, setDataToUpload } = useUI();
+    const [urlData, setUrlData] = useState({
+        url: "",
+        keywords: "",
+        name: "",
+      });
+    const { setMessageSuccessToaster, setMessageErrorToaster, dataToUpload, setDataToUpload } = useUI();
     const { user } = useUser();
+    const navigate = useNavigate()
 
     const handleUrlSubmit = async (event) => {
         event.preventDefault();
@@ -20,7 +29,8 @@ export const UploadLink = ({ setShowModalToLogin, urlData, setUrlData }) => {
                 const response = await uploadItemUrlAPI(urlData, user._id)
                 setIsLoading(false);
                 if (response.ok) {
-                    setMessageSuccessToaster("Gif/s successfuly submited.");
+                    setDataToUpload(null)
+                    setMessageSuccessToaster("Item successfuly submited.");
                     navigate('/')
                 } else {
                     setMessageErrorToaster("Something went wrong. Please try again.");
@@ -32,18 +42,53 @@ export const UploadLink = ({ setShowModalToLogin, urlData, setUrlData }) => {
         }
     }
 
+    useEffect(() => {
+        if (dataToUpload !== null) {
+            console.log(dataToUpload)
+            setUrlData(urlData => ({
+                ...urlData,
+                name: dataToUpload.name,
+                keywords: dataToUpload.keywords,
+                url: dataToUpload.url
+            }));
+        }
+    }, [])
+
     return (
         <form onSubmit={handleUrlSubmit} className="w-full flex flex-col justify-center">
-            <InputWithLabel
-                name="url"
-                label="your url"
-                type="text"
-                value={urlData}
-                onInputChange={(e) => setUrlData(e.target.value)}
-            />
+            <div className='flex flex-col gap-5'>
+                <div className='w-[30vw]'>
+                    <InputWithLabel
+                        name="name"
+                        label="name"
+                        type="text"
+                        value={urlData.name}
+                        onInputChange={(e) => setUrlData({ ...urlData, [e.target.name]: e.target.value })}
+                    />
+                </div>
+                <div className='w-[30vw]'>
+                    <InputWithLabel
+                        name="keywords"
+                        label="Keywords: introduce a ',' between each word"
+                        type="text"
+                        value={urlData.keywords}
+                        onInputChange={(e) => setUrlData({ ...urlData, [e.target.name]: e.target.value })}
+                    />
+                </div>
+                <div className='w-[30vw]'>
+                    <InputWithLabel
+                        name="url"
+                        label="url"
+                        type="text"
+                        value={urlData.url}
+                        onInputChange={(e) => setUrlData({ ...urlData, [e.target.name]: e.target.value })}
+                    />
+                </div>
+            </div>
             <div className="w-full h-[3rem] mt-5">
                 <Button text="Save" typeButton="submit" color="blue" size="sm" />
             </div>
+            {isLoading && <Loader text="Uploading data..." />}
         </form>
     )
 }

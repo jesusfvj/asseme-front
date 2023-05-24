@@ -13,6 +13,8 @@ export const UIProvider = ({ children }) => {
   const [loadingMessage, setLoadingMessage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [dataToUpload, setDataToUpload] = useState(null)
+  const [items, setItems] = useState([])
+
 
   return (
     <UIContext.Provider
@@ -26,7 +28,9 @@ export const UIProvider = ({ children }) => {
         loadingMessage,
         isLoading,
         dataToUpload,
-        setDataToUpload
+        setDataToUpload,
+        items,
+        setItems
       }}
     >
       {children}

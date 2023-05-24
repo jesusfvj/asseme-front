@@ -30,14 +30,16 @@ export const ShowUploadedItems = ({
             filesFormData,
         );
         if (!user) {
-            setDataToUpload(filesFormDataFiltered)
+            setDataToUpload([selectedFiles, filesFormDataFiltered.data])
             setShowModalToLogin(true)
+            return null
         } else {
             setIsLoading(true);
-            const response = await uploadItemsAPI(filesFormDataFiltered, user._id);
+            const response = await uploadItemsAPI(filesFormDataFiltered.filesFormData, user._id);
             setIsLoading(false);
             if (response.ok) {
-                setMessageSuccessToaster("Song/s successfuly submited.");
+                setDataToUpload(null)
+                setMessageSuccessToaster("Item/s successfuly submited.");
                 navigate('/')
             } else {
                 setMessageErrorToaster("Something went wrong. Please try again.");
@@ -58,7 +60,6 @@ export const ShowUploadedItems = ({
         if (selectedFiles) {
             const formData = new FormData();
             let copyRegisterData = { ...registerData };
-
             Object.values(selectedFiles).map((selectedFile, index) => {
                 formData.set(`itemFile${index + 1}`, selectedFile);
                 copyRegisterData = {
