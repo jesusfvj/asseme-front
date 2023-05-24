@@ -11,7 +11,7 @@ const BASE_URL_ITEM = BASE_URL + "/item"
 export const uploadItemsAPI = async (filesFormData, userId) => {
     try {
         const res = await axios.post(
-            `${BASE_URL_ITEM}/uploadItems/${userId}`,
+            `${BASE_URL_ITEM}/uploaditems/${userId}`,
             filesFormData, {
                 headers: {
                     "x-token": window.localStorage.getItem("token")
@@ -19,7 +19,7 @@ export const uploadItemsAPI = async (filesFormData, userId) => {
             });
         return res.data;
     } catch (error) {
-        if(error?.response.data){
+        if(error?.response?.data){
             checkTokenExpired(error.response.data)
             return error.response.data
         }
@@ -38,7 +38,7 @@ export const uploadItemUrlAPI = async (urlData, userId) => {
             });
         return res.data;
     } catch (error) {
-        if(error?.response.data){
+        if(error?.response?.data){
             checkTokenExpired(error.response.data)
             return error.response.data
         }
@@ -52,7 +52,7 @@ export const getTopItems = async () => {
         });
         return res.data;
     } catch (error) {
-        if(error?.response.data){
+        if(error?.response?.data){
             return error.response.data
         }
         return error
@@ -65,7 +65,7 @@ export const getItems = async () => {
         });
         return res.data;
     } catch (error) {
-        if(error?.response.data){
+        if(error?.response?.data){
             return error.response.data
         }
         return error
@@ -82,7 +82,7 @@ export const deleteItem = async (itemId, userId) => {
         });
         return res.data;
     } catch (error) {
-        if(error?.response.data){
+        if(error?.response?.data){
             checkTokenExpired(error.response.data)
             return error.response.data
         }
@@ -91,7 +91,6 @@ export const deleteItem = async (itemId, userId) => {
 };
 
 export const editItem = async (itemId, userId, itemNewName) => {
-    console.log("hola")
     try {
         const res = await axios.put(`${BASE_URL_ITEM}/edititem/${itemId}`,
         {userId, itemNewName}, {
@@ -101,7 +100,7 @@ export const editItem = async (itemId, userId, itemNewName) => {
         });
         return res.data;
     } catch (error) {
-        if(error?.response.data){
+        if(error?.response?.data){
             checkTokenExpired(error.response.data)
             return error.response.data
         }

@@ -24,17 +24,6 @@ export const UserProvider = ({ children }) => {
   const [isLoginLoading, setIsLoginLoading] = useState(false);
 
   const init = async () => {
-    setIsLoginLoading(true);
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      const data = await getUserById(user);
-      const loggedUser = data.user;
-      dispatch({ type: types.login, payload: loggedUser });
-    }
-    setIsLoginLoading(false);
-    return {
-      user,
-    };
   };
 
   const [userState, dispatch] = useReducer(userReducer, {}, init);
@@ -47,7 +36,9 @@ export const UserProvider = ({ children }) => {
 
   const login = async (user) => {
     const data = await loginUser(user);
+    console.log(data)
     if (data.ok) {
+      localStorage.setItem("user", JSON.stringify(data.user._id));
       localStorage.setItem("token", data.user.token);
       dispatch({ type: types.login, payload: data.user });
     }
@@ -57,6 +48,7 @@ export const UserProvider = ({ children }) => {
   const register = async (user) => {
     const data = await registerUser(user);
     if (data.ok) {
+      localStorage.setItem("user", JSON.stringify(data.user._id));
       localStorage.setItem("token", data.user.token);
       dispatch({ type: types.register, payload: data.user });
     }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Typography } from "../Typography";
 import { Carousel } from "./Carousel";
 import { ArtistElement, GifElement, MemeElement } from "./Elements";
-import { SkeletonGifElement, SkeletonMemeElement, SkeletonArtistElement } from "./Skeletons";
+import { SkeletonElement } from "./Skeletons/SkeletonElement";
 
 export const CarouselList = ({
   object,
@@ -38,12 +38,8 @@ export const CarouselList = ({
               return <MemeElement key={index} object={object} />;
             case "artist":
               return <ArtistElement key={index} object={object} />;
-            case "skeletonGif":
-              return <SkeletonGifElement key={index} object={object} />;
-            case "skeletonMeme":
-              return <SkeletonMemeElement key={index} object={object} />;
-            case "skeletonArtist":
-              return <SkeletonArtistElement key={index} object={object} />;
+            case "skeleton":
+              return <SkeletonElement key={index} object={object} />;
             default:
               break;
           }

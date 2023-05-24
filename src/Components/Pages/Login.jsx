@@ -8,9 +8,10 @@ import { loginWithFirebase } from "../../Utils/firebaseLoginRegister";
 import { GoogleButton } from "../BaseComponents/GoogleButton";
 import { useUser } from "../../Context/UserContext/UserContext";
 import { Typography } from "../BaseComponents/Typography";
-
+import { useUI } from "../../Context/UI/UIContext";
 
 export const Login = ({ changeLogRegister }) => {
+  const { setIsLoading } = useUI()
   const errorTextClassName = "text-xs text-red-80 text-center";
   const navigate = useNavigate();
   const { user, login } = useUser();
@@ -22,6 +23,7 @@ export const Login = ({ changeLogRegister }) => {
   });
 
   const handleLoginWithFirebase = async () => {
+    setIsLoading(true)
     const responseFirebase = await loginWithFirebase();
     const {
       email,
@@ -31,6 +33,7 @@ export const Login = ({ changeLogRegister }) => {
       email,
       password: uid,
     });
+    setIsLoading(false)
     if (response.ok) {
       toastMessageSuccess("Login successful.");
       setTimeout(() => {
@@ -48,8 +51,10 @@ export const Login = ({ changeLogRegister }) => {
   };
 
   const handleLogInSubmit = async (event) => {
+    setIsLoading(true)
     event.preventDefault();
     const response = await login(loginData)
+    setIsLoading(false)
     if (response.ok) {
       toastMessageSuccess("Login successful.");
       setTimeout(() => {

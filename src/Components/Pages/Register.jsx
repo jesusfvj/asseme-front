@@ -9,16 +9,19 @@ import { GoogleButton } from "../BaseComponents/GoogleButton";
 import { useUser } from "../../Context/UserContext/UserContext";
 import { registerWithFirebase } from "../../Utils/firebaseLoginRegister";
 import { Typography } from "../BaseComponents/Typography";
+import { useUI } from "../../Context/UI/UIContext";
 
 export const Register = ({ changeLogRegister }) => {
+    const { setIsLoading } = useUI()
     const inputClassName = "peer h-9 w-full border-b-1 text-gray-800 bg-white text-center rounded-xl px-[0.5rem]"
     const errorTextClassName = "text-xs text-red-800";
-    const { register: formRegister , watch, formState: { errors }, handleSubmit } = useForm();
+    const { register: formRegister, watch, formState: { errors }, handleSubmit } = useForm();
     const { register } = useUser();
     const navigate = useNavigate();
     const [messageEmail, setMessageEmail] = useState("")
 
     const handleRegisterWithFirebase = async () => {
+        setIsLoading(true)
         const responseFirebase = await registerWithFirebase();
         const {
             email,
@@ -31,6 +34,7 @@ export const Register = ({ changeLogRegister }) => {
             password: uid,
             repPassword: uid,
         });
+        setIsLoading(false)
         if (response.ok) {
             toastMessageSuccess("Registration successful. You will be redirect to the main page.");
             setTimeout(() => {
@@ -43,7 +47,9 @@ export const Register = ({ changeLogRegister }) => {
     }
 
     const onSubmit = async (data) => {
+        setIsLoading(true)
         const response = await register(data)
+        setIsLoading(false)
         if (response.ok) {
             toastMessageSuccess("Registration successful. You will be redirect to the main page.");
             setTimeout(() => {

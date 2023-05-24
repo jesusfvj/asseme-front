@@ -11,9 +11,6 @@ import { useEffect, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 
 export const GifPage = () => {
-    const { user } = useUser()
-    const { gifId } = useParams();
-
     const {
         items,
         setMessageSuccessToaster,
@@ -26,6 +23,8 @@ export const GifPage = () => {
         isEditing,
         setIsEditing,
     } = useUI()
+    const { user } = useUser()
+    const { gifId } = useParams();
     const [inputValue, setInputValue] = useState("")
     const foundItem = items.find((obj) => obj._id === gifId);
     const ownedGif = user?._id === foundItem.owner[0]._id

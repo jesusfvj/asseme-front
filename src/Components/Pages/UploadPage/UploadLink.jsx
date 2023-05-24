@@ -3,18 +3,16 @@ import { Button } from '../../BaseComponents/Button'
 import { InputWithLabel } from '../../BaseComponents/InputWithLabel'
 import { useUser } from '../../../Context/UserContext/UserContext';
 import { useUI } from '../../../Context/UI/UIContext';
-import { Loader } from '../../BaseComponents/Loader';
 import { uploadItemUrlAPI } from '../../../API/ItemsApi';
 import { useNavigate } from 'react-router-dom';
 
 export const UploadLink = ({ setShowModalToLogin }) => {
-    const [isLoading, setIsLoading] = useState(false);
     const [urlData, setUrlData] = useState({
         url: "",
         keywords: "",
         name: "",
-      });
-    const { setMessageSuccessToaster, setMessageErrorToaster, dataToUpload, setDataToUpload } = useUI();
+    });
+    const { setMessageSuccessToaster, setMessageErrorToaster, dataToUpload, setDataToUpload, setIsLoading } = useUI();
     const { user } = useUser();
     const navigate = useNavigate()
 
@@ -88,7 +86,6 @@ export const UploadLink = ({ setShowModalToLogin }) => {
             <div className="w-full h-[3rem] mt-5">
                 <Button text="Save" typeButton="submit" color="blue" size="sm" />
             </div>
-            {isLoading && <Loader text="Uploading data..." />}
         </form>
     )
 }

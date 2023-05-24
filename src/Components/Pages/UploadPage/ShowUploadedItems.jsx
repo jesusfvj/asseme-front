@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UploadedItemsComponent } from "./UploadedItemsComponent";
 import { Button } from "../../BaseComponents/Button";
-import { Loader } from "../../BaseComponents/Loader";
 import { organizeAndSetDataForm } from "../../../Utils/uploadItemsFunctions";
 import { useUser } from "../../../Context/UserContext/UserContext";
 import { useUI } from "../../../Context/UI/UIContext";
@@ -14,10 +13,9 @@ export const ShowUploadedItems = ({
     setSelectedFiles,
     setShowModalToLogin
 }) => {
-    const { setMessageSuccessToaster, setMessageErrorToaster, setDataToUpload } = useUI();
+    const { setMessageSuccessToaster, setMessageErrorToaster, setDataToUpload, setIsLoading } = useUI();
     const [registerData, setRegisterData] = useState({});
     const [filesFormData, setFilesFormData] = useState();
-    const [isLoading, setIsLoading] = useState(false);
     const buttonSaveRef = useRef(null);
     const { user } = useUser();
     const navigate = useNavigate();
@@ -117,7 +115,6 @@ export const ShowUploadedItems = ({
                     }}
                 />
             </div>
-            {isLoading && <Loader text="Uploading data..." />}
         </div>
     );
 };

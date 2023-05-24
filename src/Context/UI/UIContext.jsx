@@ -16,10 +16,17 @@ export const UIProvider = ({ children }) => {
   const [dataToUpload, setDataToUpload] = useState(null)
   const [textBaseModal, setTextBaseModal] = useState("")
   const [items, setItems] = useState([])
+  const [users, setUsers] = useState([])
   const [typeBaseModal, setTypeBaseModal] = useState("")
   const [itemId, setItemId] = useState("")
   const [itemNewName, setItemNewName] = useState("")
   const [isEditing, setIsEditing] = useState(false)
+  const [topItems, setTopItems] = useState(false)
+  const [searchUnderThree, setSearchUnderThree] = useState(false)
+  const [searchResults, setSearchResults] = useState({
+    items: [],
+    users: []
+  });
 
   return (
     <UIContext.Provider
@@ -47,7 +54,15 @@ export const UIProvider = ({ children }) => {
         itemNewName,
         setItemNewName,
         isEditing,
-        setIsEditing
+        setIsEditing,
+        users,
+        setUsers,
+        searchResults,
+        setSearchResults,
+        topItems,
+        setTopItems,
+        searchUnderThree,
+        setSearchUnderThree
       }}
     >
       {children}

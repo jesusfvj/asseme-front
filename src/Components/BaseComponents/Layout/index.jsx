@@ -7,6 +7,7 @@ import { useUI } from "../../../Context/UI/UIContext";
 import { useEffect } from "react";
 import { toastMessageError, toastMessageSuccess } from "../../../Utils/toaster";
 import { BaseModal } from "../BaseModal";
+import { Loader } from "../Loader";
 
 export const Layout = ({ children }) => {
     const arrayExcludeLocations = ["/loginregister", "/admin", "/upload"]
@@ -20,6 +21,7 @@ export const Layout = ({ children }) => {
         textBaseModal,
         typeBaseModal,
         itemNewName,
+        isLoading,
         itemId
      } = useUI()
 
@@ -61,6 +63,7 @@ export const Layout = ({ children }) => {
             }
             {toggleBasicModal &&
             <BaseModal text={textBaseModal} type={typeBaseModal} itemId={itemId} itemNewName={itemNewName}/>}
+            {isLoading && <Loader modal={true} />}
         </>
     )
 }

@@ -10,7 +10,7 @@ export const getUsers = async () => {
         });
         return res.data;
     } catch (error) {
-        if(error?.response.data){
+        if(error?.response?.data){
             checkTokenExpired(error.response.data)
             return error.response.data
         }

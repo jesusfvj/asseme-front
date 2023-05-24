@@ -39,6 +39,15 @@ export const NavBar = () => {
                             onClick={() => navigate(`/upload`)}
                         />
                     </div>
+                    {user &&
+                    <div className="w-full h-[5vh] flex">
+                        <Button
+                            size="xs"
+                            text="Profile"
+                            textWhite={true}
+                            onClick={() => navigate(`/artist/${user._id}`)}
+                        />
+                    </div>}
                     <div className="w-full h-[5vh] flex justify-center items-center">
                         <div className="flex justify-center items-center h-full w-[20%] bg-gray-700">
                             <Typography

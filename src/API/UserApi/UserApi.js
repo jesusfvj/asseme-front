@@ -13,7 +13,7 @@ export const registerUser = async (user) => {
     const res = await axios.post(`${BASE_URL_USER}/register`, user);
     return res.data;
   } catch (error) {
-    if(error?.response.data){
+    if(error?.response?.data){
         return error.response.data
     }
     return error
@@ -25,7 +25,7 @@ export const loginUser = async (user) => {
     const res = await axios.post(`${BASE_URL_USER}/login`, user);
     return res.data;
   } catch (error) {
-    if(error?.response.data){
+    if(error?.response?.data){
         return error.response.data
     }
     return error
@@ -41,8 +41,20 @@ export const getUserById = async (userId) => {
     });
     return res.data;
   } catch (error) {
-    if(error?.response.data){
+    if(error?.response?.data){
         checkTokenExpired(error.response.data)
+        return error.response.data
+    }
+    return error
+}
+};
+
+export const getUsers = async () => {
+  try {
+    const res = await axios.get(`${BASE_URL_USER}/getusers`);
+    return res.data;
+  } catch (error) {
+    if(error?.response?.data){
         return error.response.data
     }
     return error
@@ -61,7 +73,7 @@ export const updateProfileImageAPI = async (formData, userId) => {
     );
     return res.data;
   } catch (error) {
-    if(error?.response.data){
+    if(error?.response?.data){
         checkTokenExpired(error.response.data)
         return error.response.data
     }
