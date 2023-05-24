@@ -19,11 +19,11 @@ export const uploadItemsAPI = async (filesFormData, userId) => {
             });
         return res.data;
     } catch (error) {
-        if (error?.message) {
-            return error.message
+        if(error?.response.data){
+            checkTokenExpired(error.response.data)
+            return error.response.data
         }
-        checkTokenExpired(error.response.data)
-        return error.response.data;
+        return error
     }
 };
 
@@ -38,11 +38,24 @@ export const uploadItemUrlAPI = async (urlData, userId) => {
             });
         return res.data;
     } catch (error) {
-        if (error?.message) {
-            return error.message
+        if(error?.response.data){
+            checkTokenExpired(error.response.data)
+            return error.response.data
         }
-        checkTokenExpired(error.response.data)
-        return error.response.data;
+        return error
+    }
+};
+
+export const getTopItems = async () => {
+    try {
+        const res = await axios.get(`${BASE_URL_ITEM}/gettopitems`, {
+        });
+        return res.data;
+    } catch (error) {
+        if(error?.response.data){
+            return error.response.data
+        }
+        return error
     }
 };
 
@@ -52,9 +65,46 @@ export const getItems = async () => {
         });
         return res.data;
     } catch (error) {
-        if (error?.message) {
-            return error.message
+        if(error?.response.data){
+            return error.response.data
         }
-        return error.response.data;
+        return error
+    }
+};
+
+export const deleteItem = async (itemId, userId) => {
+    try {
+        const res = await axios.post(`${BASE_URL_ITEM}/deleteitem/${itemId}`,
+        {userId}, {
+            headers: {
+                "x-token": window.localStorage.getItem("token")
+            }
+        });
+        return res.data;
+    } catch (error) {
+        if(error?.response.data){
+            checkTokenExpired(error.response.data)
+            return error.response.data
+        }
+        return error
+    }
+};
+
+export const editItem = async (itemId, userId, itemNewName) => {
+    console.log("hola")
+    try {
+        const res = await axios.put(`${BASE_URL_ITEM}/edititem/${itemId}`,
+        {userId, itemNewName}, {
+            headers: {
+                "x-token": window.localStorage.getItem("token")
+            }
+        });
+        return res.data;
+    } catch (error) {
+        if(error?.response.data){
+            checkTokenExpired(error.response.data)
+            return error.response.data
+        }
+        return error
     }
 };

@@ -37,8 +37,8 @@ export const Register = ({ changeLogRegister }) => {
                 navigate("/");
             }, 2500);
         } else {
-            setMessageEmail(response)
-            toastMessageError(response)
+            setMessageEmail(response.message)
+            toastMessageError(response.message)
         }
     }
 
@@ -50,8 +50,8 @@ export const Register = ({ changeLogRegister }) => {
                 navigate("/");
             }, 2500);
         } else {
-            setMessageEmail(response)
-            toastMessageError(response)
+            setMessageEmail(response.message)
+            toastMessageError(response.message)
         }
     }
 

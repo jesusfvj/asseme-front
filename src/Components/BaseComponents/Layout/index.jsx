@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useUI } from "../../../Context/UI/UIContext";
 import { useEffect } from "react";
 import { toastMessageError, toastMessageSuccess } from "../../../Utils/toaster";
+import { BaseModal } from "../BaseModal";
 
 export const Layout = ({ children }) => {
     const arrayExcludeLocations = ["/loginregister", "/admin", "/upload"]
@@ -14,7 +15,13 @@ export const Layout = ({ children }) => {
     const { setMessageSuccessToaster,
         setMessageErrorToaster,
         messageSuccessToaster,
-        messageErrorToaster } = useUI()
+        messageErrorToaster,
+        toggleBasicModal,
+        textBaseModal,
+        typeBaseModal,
+        itemNewName,
+        itemId
+     } = useUI()
 
     useEffect(() => {
         if (messageSuccessToaster !== "") {
@@ -52,6 +59,8 @@ export const Layout = ({ children }) => {
                     <ToastContainer />
                 </>
             }
+            {toggleBasicModal &&
+            <BaseModal text={textBaseModal} type={typeBaseModal} itemId={itemId} itemNewName={itemNewName}/>}
         </>
     )
 }

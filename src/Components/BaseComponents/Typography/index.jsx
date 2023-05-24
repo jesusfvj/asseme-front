@@ -21,6 +21,7 @@ export const Typography = ({
     white: "text-white",
     yellow: "text-[#C4D977]",
     lightGreen: "text-[#a39281]",
+    gray: "text-[#c1c1c1]",
     darkGreen: "text-[#5b5046]",
     ligthBlue: "text-[#144360]",
     blue: "text-[#042940]",

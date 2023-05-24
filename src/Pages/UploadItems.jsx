@@ -23,7 +23,6 @@ export const UploadItems = () => {
 
   const handleLogInLogOut = () => {
     setDataToUpload(null)
-    logout()
     navigate('/')
   }
 
@@ -51,8 +50,8 @@ export const UploadItems = () => {
             <div className="w-[80%] h-full">
               <Button
                 size="xs"
-                color="danger"
-                text="Log out"
+                color="blue"
+                text="Back to home"
                 textWhite={true}
               />
             </div>

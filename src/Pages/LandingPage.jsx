@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
-import { getItems } from "../API/ItemsApi";
+import { getItems, getTopItems } from "../API/ItemsApi";
 import { CarouselList } from "../Components/BaseComponents/CarouselList";
 import { Typography } from "../Components/BaseComponents/Typography";
 import { useUI } from "../Context/UI/UIContext";
@@ -11,14 +11,22 @@ export const LandingPage = () => {
   const { items, setItems } = useUI()
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTopGifs = async () => {
+      const response = await getTopItems();
+      if (response.ok) {
+        setItems(response.items)
+        console.log(response.items)
+      }
+    };
+    fetchTopGifs();
+    const fetchGifsMemes = async () => {
       const response = await getItems();
       if (response.ok) {
         setItems(response.items)
         console.log(response.items)
       }
     };
-    fetchData();
+    fetchGifsMemes();
   }, [])
 
   return (
@@ -47,17 +55,19 @@ export const LandingPage = () => {
         {items?.length > 0
           ?
           <div className="flex flex-wrap w-full gap-4">
-            {items.map((item) => {
+            {items.map((item, index) => {
               return (
-                <div className="flex flex-col">
+                <div key={index} className="flex flex-col">
                   <Link to={`/artist/${item.owner[0]._id}`}>
-                    <Typography text={item.owner[0].name} type="p2" color="blue" styles="hover:text-blue-500"/>
+                    <Typography text={item.owner[0].name} type="p2" color="blue" styles="hover:text-blue-500" />
                   </Link>
-                  <img
-                    className="object-cover w-[15vw] h-[15vw] cursor-pointer"
-                    src={item.itemUrl}
-                    alt="gif"
-                  />
+                  <Link to={`/gif/${item._id}`}>
+                    <img
+                      className="object-cover w-[15vw] h-[15vw] cursor-pointer"
+                      src={item.itemUrl}
+                      alt="gif"
+                    />
+                  </Link>
                 </div>
               )
             })}
