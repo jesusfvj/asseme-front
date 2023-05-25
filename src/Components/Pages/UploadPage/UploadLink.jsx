@@ -42,7 +42,6 @@ export const UploadLink = ({ setShowModalToLogin }) => {
 
     useEffect(() => {
         if (dataToUpload !== null) {
-            console.log(dataToUpload)
             setUrlData(urlData => ({
                 ...urlData,
                 name: dataToUpload.name,

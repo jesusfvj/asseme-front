@@ -28,7 +28,6 @@ export const Search = () => {
         } else {
             response = await search(query);
         }
-        console.log(response)
         setIsLoading(false)
         if (response.ok) {
             setSearchResults({ ...response.results });

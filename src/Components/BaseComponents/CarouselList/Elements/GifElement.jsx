@@ -14,7 +14,6 @@ export const GifElement = ({ object, isOwner }) => {
   const handleCopyClipboard = (url) => {
     navigator.clipboard.writeText(url)
       .then(() => {
-        console.log('Text copied to clipboard:', url);
         setMessageSuccessToaster("Url copied to the clipboard.")
 
       })

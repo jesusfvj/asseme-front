@@ -1,7 +1,6 @@
 import { useUI } from '../../../Context/UI/UIContext'
 import { Button } from '../../BaseComponents/Button'
 import { Typography } from '../../BaseComponents/Typography'
-import { useEffect, useState } from 'react';
 import { deleteItem, editItem } from '../../../API/ItemsApi';
 import { useUser } from '../../../Context/UserContext/UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -46,10 +45,6 @@ export const BaseModal = ({ text, type, itemId, itemNewName }) => {
             setMessageErrorToaster(response.message)
         }
     }
-    useEffect(() => {
-        console.log("aqui")
-    }, [])
-
 
     return (
         <>

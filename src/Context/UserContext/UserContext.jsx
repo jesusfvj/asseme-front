@@ -36,7 +36,6 @@ export const UserProvider = ({ children }) => {
 
   const login = async (user) => {
     const data = await loginUser(user);
-    console.log(data)
     if (data.ok) {
       localStorage.setItem("user", JSON.stringify(data.user._id));
       localStorage.setItem("token", data.user.token);
