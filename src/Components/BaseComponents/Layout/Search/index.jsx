@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { search } from "../../../../API/SearchApi";
+import { search, searchById } from "../../../../API/SearchApi";
 import { useUser } from "../../../../Context/UserContext/UserContext";
 import { useUI } from "../../../../Context/UI/UIContext";
 import { Loader } from "../../Loader";

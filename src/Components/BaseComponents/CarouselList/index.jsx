@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Typography } from "../Typography";
 import { Carousel } from "./Carousel";
-import { ArtistElement, GifElement, MemeElement } from "./Elements";
+import { ArtistElement, GifElement } from "./Elements";
 import { SkeletonElement } from "./Skeletons/SkeletonElement";
 
 export const CarouselList = ({
@@ -34,8 +34,6 @@ export const CarouselList = ({
           switch (dataType) {
             case "gif":
               return <GifElement key={index} object={object} />;
-            case "meme":
-              return <MemeElement key={index} object={object} />;
             case "artist":
               return <ArtistElement key={index} object={object} />;
             case "skeleton":

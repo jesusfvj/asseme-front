@@ -15,7 +15,6 @@ export const UploadItems = () => {
   const [showModalToLogin, setShowModalToLogin] = useState(false);
   const navigate = useNavigate();
   const { dataToUpload, setDataToUpload } = useUI()
-  const { logout } = useUser()
 
   const handleNavigate = () => {
     navigate('/')

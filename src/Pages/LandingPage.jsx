@@ -6,16 +6,28 @@ import { CarouselList } from "../Components/BaseComponents/CarouselList";
 import { Typography } from "../Components/BaseComponents/Typography";
 import { useUI } from "../Context/UI/UIContext";
 import { skeletonData } from "../Utils/skeletonData";
+import { AiOutlineCopy } from "react-icons/ai";
 
 export const LandingPage = () => {
-  const { items, topItems, setItems, setTopItems, setUsers } = useUI()
+  const { items, topItems, setItems, setTopItems, setUsers, setMessageSuccessToaster } = useUI()
+
+  const handleCopyClipboard = (url) => {
+    navigator.clipboard.writeText(url)
+      .then(() => {
+        console.log('Text copied to clipboard:', url);
+        setMessageSuccessToaster("Url copied to the clipboard.")
+
+      })
+      .catch((error) => {
+        console.error('Failed to copy text:', error);
+      });
+  };
 
   useEffect(() => {
     const fetchTopGifs = async () => {
       const response = await getTopItems();
       if (response.ok) {
         setTopItems(response.items)
-        console.log(response.items)
       }
     };
     fetchTopGifs();
@@ -23,7 +35,6 @@ export const LandingPage = () => {
       const response = await getItems();
       if (response.ok) {
         setItems(response.items)
-        console.log(response.items)
       }
     };
     fetchGifsMemes();
@@ -31,7 +42,6 @@ export const LandingPage = () => {
       const response = await getUsers();
       if (response.ok) {
         setUsers(response.users)
-        console.log(response.users)
       }
     };
     fetchUsers();
@@ -66,17 +76,27 @@ export const LandingPage = () => {
             <div className="flex flex-wrap w-full gap-4">
               {items.map((item, index) => {
                 return (
-                  <div key={index} className="flex flex-col">
+                  <div key={index} className="relative flex flex-col">
                     <Link to={`/artist/${item.owner[0]._id}`}>
                       <Typography text={item.owner[0].name} type="p2" color="blue" styles="hover:text-blue-500" />
                     </Link>
-                    <Link to={`/gif/${item._id}`}>
-                      <img
-                        className="object-cover w-[15vw] h-[15vw] cursor-pointer"
-                        src={item.itemUrl}
-                        alt="gif"
-                      />
-                    </Link>
+                    <div className="relative">
+                      <Link to={`/gif/${item._id}`}>
+                        <img
+                          className="object-cover w-[15vw] h-[15vw] cursor-pointer"
+                          src={item.itemUrl}
+                          alt="gif"
+                        />
+                      </Link>
+                      <div className='absolute top-2 right-2' onClick={() => handleCopyClipboard(item.itemUrl)}>
+                        <Typography
+                          text={<AiOutlineCopy />}
+                          type="p1"
+                          color="gray"
+                          styles="hover:text-white cursor-pointer"
+                        />
+                      </div>
+                    </div>
                   </div>
                 )
               })}

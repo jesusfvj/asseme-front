@@ -81,14 +81,11 @@ export const updateProfileImageAPI = async (formData, userId) => {
 }
 };
 
-/* export const sendEmail = async (email) => {
+export const toggleFollowing = async (userid, artistId, isFollowed) => {
   try {
     const res = await axios.post(
-      `${BASE_URL_USER}/resetpassword`,
-      {
-        email,
-      },
-      {
+      `${BASE_URL_USER}/togglefollowing/${userid}`,
+      {artistId, isFollowed}, {
         headers: {
           "x-token": window.localStorage.getItem("token"),
         },
@@ -96,7 +93,11 @@ export const updateProfileImageAPI = async (formData, userId) => {
     );
     return res.data;
   } catch (error) {
-    checkTokenExpired(error.response.data);
-    return error.response.data;
-  }
-}; */
+    if(error?.response?.data){
+        checkTokenExpired(error.response.data)
+        return error.response.data
+    }
+    return error
+}
+};
+

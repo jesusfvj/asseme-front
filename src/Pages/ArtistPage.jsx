@@ -4,20 +4,30 @@ import { useUI } from "../Context/UI/UIContext";
 import { useUser } from "../Context/UserContext/UserContext";
 import { GifElement, ArtistElement } from "../Components/BaseComponents/CarouselList/Elements"
 import { RiUserFollowFill, RiUserFollowLine } from "react-icons/ri";
+import { toggleFollowing } from "../API/UserApi/UserApi";
+import { useState } from "react";
 
 export const ArtistPage = () => {
   const { artistId } = useParams();
   const { user } = useUser()
-  const { users, items } = useUI()
-
+  const { users, items, setIsLoading, setMessageSuccessToaster, setMessageErrorToaster } = useUI()
   const foundArtist = users.find((obj) => obj._id === artistId);
   const isUser = user?._id === artistId
-  const isFollowed = false
+  const [isFollowed, setIsFollowed] = useState(user?.following.includes(artistId))
 
-  const followClicked = () => {
-    console.log("hola")
+  const followClicked = async () => {
+    setIsLoading(true)
+    const response = await toggleFollowing(user._id, artistId, isFollowed);
+    setIsLoading(false)
+    if (response.ok) {
+      setIsFollowed(!response.isFollowed)
+      setMessageSuccessToaster(`You are succesfully ${!isFollowed ? 'un' : ""}following this user.`);
+    } else {
+      setMessageErrorToaster(response.message)
+    }
   }
 
+  console.log(foundArtist)
   return (
     <div className="w-screen min-h-[80vh] relative z-20 pl-28 pr-10 my-10">
       <div className="flex flex-col gap-32">
@@ -26,18 +36,16 @@ export const ArtistPage = () => {
             <Typography text={foundArtist.name} type="p1" color="yellow" styles="pr-1 h-full" />
             <div className="relative w-full h-full rounded-lg bg-gray-700 p-2 flex justify-center items-center">
               <img className="w-full h-full" src={foundArtist.profilePhoto} alt="artist image" />
-              {isUser &&
+              {!isUser && user &&
                 <div
-                  className="absolute top-2 right-2 cursor-pointer flex justify-center items-center"
+                  className="z-30 absolute top-2 right-2 cursor-pointer flex justify-center items-center"
                   onClick={followClicked}
                 >
                   <Typography
-                    text={isFollowed ? <RiUserFollowFill /> : <RiUserFollowLine />}
+                    text={isFollowed ? <RiUserFollowLine /> : <RiUserFollowFill />}
                     type="p0"
-                    color={isFollowed ? "white" : "gray"}
-                    styles="hidden xs:flex"
+                    color={isFollowed ? "gray" : "white"}
                   />
-
                 </div>
               }
             </div>
@@ -48,36 +56,40 @@ export const ArtistPage = () => {
             <Typography text={`Has ${foundArtist.uploadedItems.length} gifs and memes`} type="p1" color="blue" />
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <Typography text="Gifs and memes" type="important" color="yellow" />
-          <div className="w-full flex flex-wrap gap-4">
-            {
-              foundArtist.uploadedItems.map((itemId, index) => {
-                const foundItem = items.find((obj) => obj._id === itemId);
-                if (foundItem !== undefined) {
-                  return (
-                    <GifElement key={index} object={foundItem} isOwner={true}/>
-                  )
-                }
-              })
-            }
+        {foundArtist?.uploadedItems && foundArtist?.uploadedItems.length > 0 &&
+          <div className="flex flex-col gap-2">
+            <Typography text="Gifs and memes" type="important" color="yellow" />
+            <div className="w-full flex flex-wrap gap-4">
+              {
+                foundArtist?.uploadedItems.map((itemId, index) => {
+                  const foundItem = items.find((obj) => obj._id === itemId);
+                  if (foundItem !== undefined) {
+                    return (
+                      <GifElement key={index} object={foundItem} isOwner={true} />
+                    )
+                  }
+                })
+              }
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <Typography text="Following artists" type="important" color="yellow" />
-          <div className="w-full flex flex-wrap gap-4">
-            {
-              foundArtist.following.map((artistId, index) => {
-                const foundItem = users.find((obj) => obj._id === artistId);
-                if (foundItem !== undefined) {
-                  return (
-                    <ArtistElement key={index} object={foundItem} />
-                  )
-                }
-              })
-            }
+        }
+        {foundArtist?.following && foundArtist?.following.length > 0 &&
+          <div className="flex flex-col gap-2">
+            <Typography text="Following artists" type="important" color="yellow" />
+            <div className="w-full flex flex-wrap gap-4">
+              {
+                foundArtist?.following.map((artist, index) => {
+                  const foundItem = users.find((obj) => obj._id === artist._id);
+                  if (foundItem !== undefined) {
+                    return (
+                      <ArtistElement key={index} object={foundItem} />
+                    )
+                  }
+                })
+              }
+            </div>
           </div>
-        </div>
+        }
       </div>
     </div>
   )
