@@ -2,7 +2,6 @@ import { useState } from "react";
 import { search, searchById } from "../../../../API/SearchApi";
 import { useUser } from "../../../../Context/UserContext/UserContext";
 import { useUI } from "../../../../Context/UI/UIContext";
-import { Loader } from "../../Loader";
 import { SlMagnifier } from "react-icons/sl";
 import { Typography } from "../../Typography";
 import { useNavigate } from "react-router-dom";
@@ -29,10 +28,10 @@ export const Search = () => {
         } else {
             response = await search(query);
         }
+        console.log(response)
         setIsLoading(false)
         if (response.ok) {
             setSearchResults({ ...response.results });
-            console.log("hola")
         } else (
             setMessageErrorToaster(response.message)
         )

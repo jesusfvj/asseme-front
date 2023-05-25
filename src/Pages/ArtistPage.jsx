@@ -27,7 +27,6 @@ export const ArtistPage = () => {
     }
   }
 
-  console.log(foundArtist)
   return (
     <div className="w-screen min-h-[80vh] relative z-20 pl-28 pr-10 my-10">
       <div className="flex flex-col gap-32">
@@ -51,8 +50,8 @@ export const ArtistPage = () => {
             </div>
           </div>
           <div>
-            <Typography text={`Following ${foundArtist.following.length} users`} type="p1" color="blue" />
-            <Typography text={`Followed by ${foundArtist.followedBy.length} users`} type="p1" color="blue" />
+            <Typography text={`Following ${isFollowed ? foundArtist.following.length - 1: foundArtist.following.length} users`} type="p1" color="blue" />
+            <Typography text={`Followed by ${isFollowed ? foundArtist.followedBy.length - 1: foundArtist.followedBy.length} users`} type="p1" color="blue" />
             <Typography text={`Has ${foundArtist.uploadedItems.length} gifs and memes`} type="p1" color="blue" />
           </div>
         </div>

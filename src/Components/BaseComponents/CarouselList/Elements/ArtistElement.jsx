@@ -8,7 +8,7 @@ export const ArtistElement = ({ object }) => {
   return (
     <div className='w-[14vw] relative cursor-pointer'>
       <Link to={`/artist/${object._id}`}>
-        <img className="h-full w-full" src={object.profilePhoto} alt="gif" />
+        <img className="h-full w-full object-contain" src={object.profilePhoto} alt="gif" />
       </Link>
       {
         !isUser &&

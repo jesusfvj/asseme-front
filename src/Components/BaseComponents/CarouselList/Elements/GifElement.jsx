@@ -26,7 +26,7 @@ export const GifElement = ({ object, isOwner }) => {
   return (
     <div className='w-[14vw] relative cursor-pointer'>
       <Link to={`/gif/${object._id}`}>
-        <img className="h-full w-full" src={object.itemUrl} alt="gif" />
+        <img className="h-full w-full object-contain" src={object.itemUrl} alt="gif" />
       </Link>
         <div className='absolute top-2 right-2' onClick={() => handleCopyClipboard(object.itemUrl)}>
           <Typography
