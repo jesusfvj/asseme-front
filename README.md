@@ -14,33 +14,27 @@ Before running the ASSEME application, make sure you have Node.js and npm (Node 
 git clone https://github.com/jesusfvj/asseme-front.git
 ```
 
-2. Navigate to the project's root directory:
-
-```shell
-cd asseme
-```
-
-3. Install the dependencies:
+2. Install the dependencies:
 
 ```shell
 npm install
 ```
 
-4. Configure the front:
+3. Configure the front:
 
    - Open the `.envExample` file in the project's root directory and create a env.js file with the firebase keys updated.
 
-5. Configure the backend:
+4. Configure the backend:
 
    - Open the `.env` file in the project's root directory and update the MongoDB connection string.
 
-6. Start the application:
+5. Start the application:
 
 ```shell
 npm run dev
 ```
 
-7. Access the application:
+6. Access the application:
 
    - Open your web browser and visit `http://localhost:YOUR_PORT` to access the ASSEME application.
 
