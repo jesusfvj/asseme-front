@@ -11,7 +11,7 @@ Before running the ASSEME application, make sure you have Node.js and npm (Node 
 1. Clone the repository:
 
 ```shell
-git clone https://github.com/your-username/asseme.git
+git clone https://github.com/jesusfvj/asseme-front.git
 ```
 
 2. Navigate to the project's root directory:
